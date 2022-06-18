@@ -6,4 +6,4 @@ import ruter from "./router/intex";
 
 loadFonts();
 
-createApp(App).use(vuetify, ruter).mount("#app");
+createApp(App).use(vuetify).use(ruter).mount("#app");
