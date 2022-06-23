@@ -36,10 +36,10 @@ router.beforeEach((to, from, next) => {
 	const authRequired = !publicPages.includes(to.path);
 	const loggedIn = authStore.token;
 
-	if (authRequired && !loggedIn) return next("/login");
+	if (authRequired && !loggedIn) return next("/signin");
 	if (!authRequired && loggedIn) {
 		authStore.unsetToken();
-		return next("/login");
+		return next("/signin");
 	}
 
 	next();

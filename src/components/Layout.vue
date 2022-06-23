@@ -16,7 +16,7 @@
 		<v-btn variant="text" icon="mdi-dots-vertical"></v-btn>
 	</v-app-bar>
 	<v-navigation-drawer v-model="drawer" bottom temporary>
-		<v-list :items=""></v-list>
+		<v-list></v-list>
 	</v-navigation-drawer>
 	<v-main>
 		<router-view></router-view>

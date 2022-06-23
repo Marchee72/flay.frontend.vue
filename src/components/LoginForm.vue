@@ -61,7 +61,7 @@
 				if (!this.error && this.data) {
 					this.auth.setToken(this.data);
 					console.log("Logged in!");
-					this.$router.push("/dashboard");
+					this.$router.push("/");
 				}
 			},
 		},
