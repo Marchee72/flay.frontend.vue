@@ -37,9 +37,17 @@
 
 <script lang="ts">
 	import { defineComponent } from "vue";
+	import { usePost } from "../composables/POST";
+	import UserLogin from "../entities/authorization/UserLogin";
+	import { useAuthSrote } from "../stores/AuthStore";
 
 	export default defineComponent({
 		name: "LoginForm",
+		setup() {
+			const auth = useAuthSrote();
+			const { data, error, post } = usePost<UserLogin, string>("/login", false);
+			return { auth, data, error, post };
+		},
 		data() {
 			return {
 				username: "",
@@ -47,8 +55,14 @@
 			};
 		},
 		methods: {
-			handleSubmit() {
-				console.log(this.username + this.password);
+			async handleSubmit() {
+				var login = new UserLogin(this.username, this.password);
+				await this.post(login);
+				if (!this.error && this.data) {
+					this.auth.setToken(this.data);
+					console.log("Logged in!");
+					this.$router.push("/dashboard");
+				}
 			},
 		},
 	});

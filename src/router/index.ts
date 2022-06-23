@@ -1,18 +1,48 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-
-import HomeView from "../views/Home.vue";
-import LoginView from "../views/Login.vue";
+import { useAuthSrote } from "../stores/AuthStore";
 
 const Home = { template: "<div>Home</div>" };
 
 const routes: RouteRecordRaw[] = [
-	{ path: "/", name: "home", component: HomeView },
-	{ path: "/signin", name: "login", component: LoginView },
+	{ path: "/home", name: "home", component: () => import("../views/Home.vue") },
+	{
+		path: "/signin",
+		name: "login",
+		component: () => import("../views/Login.vue"),
+	},
+	{
+		path: "/",
+		name: "",
+		component: () => import("../components/Layout.vue"),
+		children: [
+			{
+				path: "/main",
+				name: "main",
+				component: () => import("../views/Main.vue"),
+			},
+		],
+	},
 ];
 
 const router = createRouter({
 	history: createWebHashHistory(),
 	routes,
+});
+
+router.beforeEach((to, from, next) => {
+	// redirect to login page if not logged in and trying to access a restricted page
+	const authStore = useAuthSrote();
+	const publicPages = ["/home", "/signin"];
+	const authRequired = !publicPages.includes(to.path);
+	const loggedIn = authStore.token;
+
+	if (authRequired && !loggedIn) return next("/login");
+	if (!authRequired && loggedIn) {
+		authStore.unsetToken();
+		return next("/login");
+	}
+
+	next();
 });
 
 export default router;
