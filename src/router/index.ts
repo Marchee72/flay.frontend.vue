@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from "vue-router";
 import { useAuthSrote } from "../stores/AuthStore";
 
 const Home = { template: "<div>Home</div>" };
@@ -13,6 +13,7 @@ const routes: RouteRecordRaw[] = [
 	{
 		path: "/",
 		name: "",
+		redirect: "/main",
 		component: () => import("../components/Layout.vue"),
 		children: [
 			{
@@ -25,7 +26,7 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-	history: createWebHashHistory(),
+	history: createWebHistory(),
 	routes,
 });
 
