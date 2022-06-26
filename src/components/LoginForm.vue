@@ -1,6 +1,6 @@
 <template>
 	<v-col cols="6" class="mx-auto my-12">
-		<v-card>
+		<v-card secondary>
 			<v-card-header>
 				<v-card-header-text>
 					<v-card-title> Login </v-card-title>
@@ -37,7 +37,7 @@
 
 <script lang="ts">
 	import { defineComponent } from "vue";
-	import { usePost } from "../composables/POST";
+	import { useFetch } from "../composables/Fetch";
 	import UserLogin from "../entities/authorization/UserLogin";
 	import { useAuthSrote } from "../stores/AuthStore";
 
@@ -45,8 +45,12 @@
 		name: "LoginForm",
 		setup() {
 			const auth = useAuthSrote();
-			const { data, error, post } = usePost<UserLogin, string>("/login", false);
-			return { auth, data, error, post };
+			const { data, error, fetch } = useFetch<UserLogin, string>(
+				"/login",
+				"POST",
+				false
+			);
+			return { auth, data, error, fetch };
 		},
 		data() {
 			return {
@@ -57,7 +61,7 @@
 		methods: {
 			async handleSubmit() {
 				var login = new UserLogin(this.username, this.password);
-				await this.post(login);
+				await this.fetch(login);
 				if (!this.error && this.data) {
 					this.auth.setToken(this.data);
 					console.log("Logged in!");

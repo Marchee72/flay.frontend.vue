@@ -1,17 +1,20 @@
-import axios from "axios";
+import axios, { Method } from "axios";
 import { Ref, ref } from "vue";
 import { NewAxiosConfig } from "./AxiosConfig";
 
-export function usePost<T, R>(path: string, needAuth: boolean = true) {
+export function useFetch<T, R>(
+	path: string,
+	httpMethod: Method,
+	needAuth: boolean = true
+) {
 	const data: Ref<R | null> = ref(null);
 	const error: Ref<Error | null> = ref(null);
 
-	var post = async (body: T) => {
+	var fetch = (body: T | null = null) => {
 		data.value = null;
 		error.value = null;
-		var config = NewAxiosConfig<T>(path, "POST", body, needAuth);
-		await axios(config)
-			// .post<T, AxiosResponse<R>>(path, config)
+		var config = NewAxiosConfig<T>(path, httpMethod, body, needAuth);
+		axios(config)
 			.then((res) => {
 				data.value = res.data;
 			})
@@ -20,5 +23,5 @@ export function usePost<T, R>(path: string, needAuth: boolean = true) {
 				error.value = e;
 			});
 	};
-	return { data, error, post };
+	return { data, error, fetch };
 }

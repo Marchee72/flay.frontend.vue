@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { useAuthSrote } from "../stores/AuthStore";
 
 const Home = { template: "<div>Home</div>" };
@@ -20,6 +20,11 @@ const routes: RouteRecordRaw[] = [
 				path: "/main",
 				name: "main",
 				component: () => import("../views/Main.vue"),
+			},
+			{
+				path: "/booking",
+				name: "booking",
+				component: () => import("../views/Bookings.vue"),
 			},
 		],
 	},

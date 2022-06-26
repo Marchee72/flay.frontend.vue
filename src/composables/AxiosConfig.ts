@@ -17,7 +17,9 @@ export function NewAxiosConfig<T>(
 	if (needAuth) {
 		const auth = useAuthSrote();
 		var authToken = auth.token;
-		config.headers!["authentication"] = authToken!;
+		config.headers = {
+			Authorization: authToken,
+		};
 	}
 	if (!unbodyMethods.includes(httpMethod) && body) {
 		config.data = body;
