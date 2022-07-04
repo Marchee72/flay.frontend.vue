@@ -1,4 +1,4 @@
-import axios, { Method } from "axios";
+import axios, { AxiosError, Method } from "axios";
 import { Ref, ref } from "vue";
 import { NewAxiosConfig } from "./AxiosConfig";
 
@@ -10,17 +10,19 @@ export function useFetch<T, R>(
 	const data: Ref<R | null> = ref(null);
 	const error: Ref<Error | null> = ref(null);
 
-	var fetch = (body: T | null = null) => {
+	const fetch = async (body: T | null = null) => {
 		data.value = null;
 		error.value = null;
 		var config = NewAxiosConfig<T>(path, httpMethod, body, needAuth);
-		axios(config)
+		await axios(config)
 			.then((res) => {
 				data.value = res.data;
+				console.log(JSON.stringify(res.data));
 			})
-			.catch((e) => {
+			.catch((e: AxiosError) => {
 				console.log("API Error: " + e);
 				error.value = e;
+				if (e.response?.status === 401) window.location.replace("/signin");
 			});
 	};
 	return { data, error, fetch };

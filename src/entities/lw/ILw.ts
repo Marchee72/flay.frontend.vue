@@ -1,4 +1,4 @@
 export default interface ILw {
-	Id: string;
-	Name: string;
+	id: string;
+	name: string;
 }

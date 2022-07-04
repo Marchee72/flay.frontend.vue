@@ -1,7 +1,9 @@
 <template>
-	<v-app>
-		<router-view />
-	</v-app>
+	<v-theme-provider theme="dark">
+		<v-app>
+			<router-view />
+		</v-app>
+	</v-theme-provider>
 </template>
 
 <script lang="ts">

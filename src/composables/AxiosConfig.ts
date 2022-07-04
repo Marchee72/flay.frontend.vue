@@ -2,7 +2,7 @@ import { AxiosRequestConfig, Method } from "axios";
 import { ServerURl } from "../constants/URL";
 import { useAuthSrote } from "../stores/AuthStore";
 
-const unbodyMethods = ["GET", "DELETE", "TRACE", "OPTIONS", "HEAD"];
+const bodylessMethods = ["GET", "DELETE", "TRACE", "OPTIONS", "HEAD"];
 export function NewAxiosConfig<T>(
 	url: string,
 	httpMethod: Method,
@@ -21,7 +21,7 @@ export function NewAxiosConfig<T>(
 			Authorization: authToken,
 		};
 	}
-	if (!unbodyMethods.includes(httpMethod) && body) {
+	if (!bodylessMethods.includes(httpMethod) && body) {
 		config.data = body;
 	}
 	return config;
