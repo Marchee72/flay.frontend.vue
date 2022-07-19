@@ -1,6 +1,6 @@
 <template>
-	<h1>RESERVAS</h1>
 	<v-col cols="6" class="mx-auto my-12">
+		<h1>RESERVAS</h1>
 		<v-table fixed-heade>
 			<thead>
 				<tr>
@@ -8,7 +8,7 @@
 					<th class="text-left">Edificio</th>
 					<th class="text-left">Espacio comun</th>
 					<th class="text-left">Inicio</th>
-					<th class="text-left">Fin</th>
+					<th class="text-left">Turno</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -16,8 +16,8 @@
 					<td>{{ booking.id }}</td>
 					<td>{{ booking.building.name }}</td>
 					<td>{{ booking.common_space }}</td>
-					<td>{{ booking.start_date }}</td>
-					<td>{{ booking.end_date }}</td>
+					<td>{{ booking.date }}</td>
+					<td>{{ booking.shift }}</td>
 				</tr>
 			</tbody>
 		</v-table>

@@ -1,3 +1,4 @@
+import { Shift } from "../constants/Shifts";
 import ILw from "./lw/ILw";
 
 export default class Booking {
@@ -5,6 +6,6 @@ export default class Booking {
 	user!: ILw;
 	common_space!: string;
 	building!: ILw;
-	start_date!: Date;
-	end_date!: Date;
+	date!: Date;
+	shift!: Shift;
 }
