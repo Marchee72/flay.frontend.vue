@@ -10,10 +10,13 @@ export function useFetch<T, R>(
 	const data: Ref<R | null> = ref(null);
 	const error: Ref<Error | null> = ref(null);
 
-	const fetch = async (body: T | null = null) => {
+	const fetch = async (
+		body: T | null = null,
+		params: Map<string, string> | null = null
+	) => {
 		data.value = null;
 		error.value = null;
-		var config = NewAxiosConfig<T>(path, httpMethod, body, needAuth);
+		var config = NewAxiosConfig<T>(path, params, httpMethod, body, needAuth);
 		await axios(config)
 			.then((res) => {
 				data.value = res.data;

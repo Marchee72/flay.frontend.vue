@@ -1,7 +1,7 @@
 <template>
 	<v-col cols="6" class="mx-auto my-12">
 		<h1>RESERVAS</h1>
-		<v-table fixed-heade>
+		<v-table fixed-header>
 			<thead>
 				<tr>
 					<th class="text-left">Id</th>
@@ -28,16 +28,32 @@
 	import { defineComponent } from "vue";
 	import { useFetch } from "../composables/Fetch";
 	import GetBookingsResponse from "../contracts/GetBookingsResponse";
+	import GetBuildingResponse from "../contracts/GetBuildingResponse";
 
 	export default defineComponent({
 		name: "BookingList",
-		async setup() {
+		props: {
+			building: GetBuildingResponse,
+		},
+		setup() {
 			const { data, error, fetch } = useFetch<null, GetBookingsResponse>(
-				"/bookings",
+				"building/:building_id/bookings",
 				"GET"
 			);
-			await fetch();
-			return { data, error };
+			//console.log("PRO000000P: " + props.building?.id);
+
+			return { data, error, fetch };
+		},
+		watch: {
+			async "props.building"(newValue: GetBuildingResponse) {
+				if (newValue) {
+					var params = new Map<string, string>([
+						[":building_id", newValue.id!],
+					]);
+					await this.fetch(null, params);
+					console.log("watcher: " + this.data?.bookings);
+				}
+			},
 		},
 	});
 </script>

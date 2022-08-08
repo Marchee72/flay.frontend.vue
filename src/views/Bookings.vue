@@ -1,31 +1,37 @@
 <template>
 	<h1>Mis reservas</h1>
-	<Suspense>
-		<template #default>
-			<BookingList />
-		</template>
-		<template #fallback>
-			<span>Loading...</span>
-		</template>
-	</Suspense>
-	<BookingForm />
+
+	<BookingList :building="data!" />
+	<BookingForm :dialog="dialog" />
 </template>
 <script lang="ts">
-	import { defineAsyncComponent, defineComponent } from "vue";
+	import { defineComponent } from "vue";
 	import BookingForm from "../components/BookingForm.vue";
+	import BookingList from "../components/BookingList.vue";
+
+	import { useFetch } from "../composables/Fetch";
+	import GetBuildingResponse from "../contracts/GetBuildingResponse";
 
 	export default defineComponent({
 		name: "BookingView",
 		components: {
-			BookingList: defineAsyncComponent(
-				() => import("../components/BookingList.vue")
-			),
+			BookingList,
 			BookingForm,
 		},
-		setup() {},
+		setup() {
+			const { data, error, fetch } = useFetch<null, GetBuildingResponse>(
+				"/building",
+				"GET"
+			);
+
+			fetch();
+			console.log("bookingsVuew: " + data.value?.id);
+			return { data, error };
+		},
 		data() {
 			return {
 				dialog: false,
+				building: new GetBuildingResponse(),
 			};
 		},
 	});
