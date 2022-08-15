@@ -28,32 +28,20 @@
 	import { defineComponent } from "vue";
 	import { useFetch } from "../composables/Fetch";
 	import GetBookingsResponse from "../contracts/GetBookingsResponse";
-	import GetBuildingResponse from "../contracts/GetBuildingResponse";
+	import { useBuildingStore } from "../stores/BuildingStore";
 
 	export default defineComponent({
 		name: "BookingList",
-		props: {
-			building: GetBuildingResponse,
-		},
-		setup() {
+		async setup() {
+			const buildingStore = useBuildingStore();
 			const { data, error, fetch } = useFetch<null, GetBookingsResponse>(
 				"building/:building_id/bookings",
 				"GET"
 			);
-			//console.log("PRO000000P: " + props.building?.id);
-
-			return { data, error, fetch };
-		},
-		watch: {
-			async "props.building"(newValue: GetBuildingResponse) {
-				if (newValue) {
-					var params = new Map<string, string>([
-						[":building_id", newValue.id!],
-					]);
-					await this.fetch(null, params);
-					console.log("watcher: " + this.data?.bookings);
-				}
-			},
+			var building = buildingStore.building;
+			var params = new Map<string, string>([[":building_id", building?.id!]]);
+			await fetch(null, params);
+			return { data, error };
 		},
 	});
 </script>

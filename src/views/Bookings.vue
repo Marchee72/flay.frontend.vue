@@ -1,7 +1,7 @@
 <template>
 	<h1>Mis reservas</h1>
 
-	<BookingList :building="data!" />
+	<BookingList />
 	<BookingForm :dialog="dialog" />
 </template>
 <script lang="ts">
@@ -11,6 +11,8 @@
 
 	import { useFetch } from "../composables/Fetch";
 	import GetBuildingResponse from "../contracts/GetBuildingResponse";
+	import Building from "../entities/Building";
+	import { useBuildingStore } from "../stores/BuildingStore";
 
 	export default defineComponent({
 		name: "BookingView",
@@ -18,14 +20,18 @@
 			BookingList,
 			BookingForm,
 		},
-		setup() {
+		async setup() {
+			const buildingStore = useBuildingStore();
 			const { data, error, fetch } = useFetch<null, GetBuildingResponse>(
 				"/building",
 				"GET"
 			);
 
-			fetch();
+			await fetch();
 			console.log("bookingsVuew: " + data.value?.id);
+			var building = new Building();
+			building.FillFromResponse(data.value!);
+			buildingStore.setBuilding(building);
 			return { data, error };
 		},
 		data() {

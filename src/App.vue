@@ -1,7 +1,9 @@
 <template>
 	<v-theme-provider>
 		<v-app>
-			<router-view />
+			<Suspense>
+				<router-view />
+			</Suspense>
 		</v-app>
 	</v-theme-provider>
 </template>
