@@ -12,19 +12,25 @@
 					<span class="text-h5">Nueva reserva</span>
 				</v-card-title>
 				<v-card-text>
-					<v-form>
-						<v-row refs="form">
+					<v-form ref="form">
+						<v-row>
 							<v-col cols="6">
-								<v-text-field label="Edificio" readonly></v-text-field>
+								<v-text-field label="Edificio" v-model="building.name" readonly></v-text-field>
 							</v-col>
 							<v-col cols="6">
-								<v-text-field label="Espacio comun" required></v-text-field>
+								<v-select label="Espacio comun" 
+									v-model="booking.common_space" 
+									:items="building.common_spaces"
+									item-title="name"
+									item-value="name"
+									required>
+								</v-select>
 							</v-col>
 						</v-row>
 						<v-row>
 							<v-col cols="12" sm="6" md="6">
 								<v-text-field
-									v-model="newBooking.date"
+									v-model="booking.date"
 									label="Fecha"
 									persistent-hint
 									type="date"
@@ -33,7 +39,7 @@
 							</v-col>
 							<v-col cols="12" sm="6">
 								<v-select
-									:v-model="newBooking.shift"
+									v-model="booking.shift"
 									:items="shifts"
 									item-title="title"
 									item-value="key"
@@ -65,6 +71,8 @@
 	import NewBookingRequest from "../contracts/NewBookingRequest";
 	import NewBookingResponse from "../contracts/NewBookingResponse";
 	import Booking from "../entities/Booking";
+import { useAuthSrote } from "../stores/AuthStore";
+import { useBuildingStore } from "../stores/BuildingStore";
 
 	export default defineComponent({
 		name: "BookingForm",
@@ -74,8 +82,15 @@
 				NewBookingRequest,
 				NewBookingResponse
 			>("/booking", "POST", true);
-			return { data, error, fetch };
+			const buildingStore = useBuildingStore();
+			const building = buildingStore.building!;
+			console.log(building)
+
+			return { building, data, error, fetch };
 		},
+		// mount(){
+		// 	this.booking = this.newBooking;
+		// },
 		data() {
 			return {
 				dialog: false,
@@ -84,18 +99,21 @@
 					{ key: "TARDE", title: "Tarde (15:30  a 19 hs)" },
 					{ key: "NOCHE", title: "Noche (20 a 00 hs)" },
 				],
-				newBooking: new Booking(),
+				 booking: new NewBookingRequest()
 			};
+		},
+		computed: {
+
 		},
 		methods: {
 			async hanleSubmit() {
-				//this.$refs.form.validate();
-				var request = new NewBookingRequest(this.newBooking);
-				await this.fetch(request);
+				this.booking.setBuilding(this.building);
+				await this.fetch(this.booking);
 				if (!this.error) {
 					alert(this.data?.booking);
 				}
 				this.dialog = false;
+				(this.$refs.form as any).reset();
 			},
 		},
 	});

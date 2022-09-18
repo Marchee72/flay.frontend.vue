@@ -1,10 +1,12 @@
 import GetBuildingResponse from "../contracts/GetBuildingResponse";
+import CommonSpace from "./CommonSpace";
+import ILw from "./lw/ILw";
 
-export default class Building {
+export default class Building implements ILw{
 	id!: string;
 	name!: string;
 	address!: string;
-	common_spaces!: commonSpace[];
+	common_spaces!: CommonSpace[];
 
 	constructor() {}
 
@@ -23,7 +25,4 @@ class address {
 	apartment!: string;
 }
 
-class commonSpace {
-	name!: string;
-	type!: string;
-}
+
