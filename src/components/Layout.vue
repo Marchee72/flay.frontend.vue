@@ -14,6 +14,10 @@
 		<v-btn variant="text" icon="mdi-filter"></v-btn>
 
 		<v-btn variant="text" icon="mdi-dots-vertical"></v-btn>
+		<RouterLink to="/signin">
+			<v-btn prepend-icon="mdi-logout-variant">Logout</v-btn>
+		</RouterLink>
+
 	</v-app-bar>
 	<v-navigation-drawer v-model="drawer" bottom temporary>
 		<v-list>
@@ -47,5 +51,10 @@
 			listItems: GetAdminPermissions(),
 			drawer: false,
 		}),
+		methods: {
+			logout(){
+
+			}
+		}
 	});
 </script>

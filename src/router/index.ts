@@ -22,9 +22,14 @@ const routes: RouteRecordRaw[] = [
 				component: () => import("../views/Main.vue"),
 			},
 			{
-				path: "/booking",
-				name: "booking",
+				path: "/bookings",
+				name: "bookings",
 				component: () => import("../views/Bookings.vue"),
+			},
+			{
+				path: "/announcements",
+				name: "announcements",
+				component: () => import("../views/Announcements.vue"),
 			},
 		],
 	},

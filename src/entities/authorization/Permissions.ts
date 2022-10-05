@@ -14,7 +14,8 @@ export default class Permission {
 
 export function GetAdminPermissions() {
 	return [
-		new Permission("Mis reservas", "booking", "mdi-book"),
+		new Permission("Reservas", "bookings", "mdi-book"),
+		new Permission("Anuncios", "announcements", "mdi-bullhorn"),
 		new Permission("Sarasa", "sarasa", "mdi-zodiac-scorpio"),
 	];
 }
