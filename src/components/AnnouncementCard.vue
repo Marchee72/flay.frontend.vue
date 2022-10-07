@@ -8,7 +8,11 @@
               {{announcement!.title}}
             </v-card-title>
 
-            <v-card-subtitle>{{announcement!.message}}</v-card-subtitle>
+            <v-card-subtitle>
+              <p class="text-wrap">
+                {{announcement!.message}}
+              </p>
+            </v-card-subtitle>
             <div class="d-flex justify-end">
               {{announcement?.date}}
             </div>
