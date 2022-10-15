@@ -10,6 +10,9 @@
 	export default defineComponent({
 		name: "LoginView",
 		components: { LoginForm },
+		setup(){
+			localStorage.clear();
+		}
 	});
 </script>
 

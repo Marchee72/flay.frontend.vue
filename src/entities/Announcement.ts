@@ -1,3 +1,4 @@
+import { Severity } from "../constants/Severity";
 import ILw from "./lw/ILw"
 
 export default class Announcement {
@@ -6,5 +7,5 @@ export default class Announcement {
     title!: string;
     message!: string;
     date!:Date;
-    severity!: string;
+    severity!: Severity;
 }

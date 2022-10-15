@@ -1,8 +1,7 @@
 <template>
     <v-container>
         <v-card
-            color="#385F73"
-            theme="dark"
+            :color="toSeverityColor(announcement!.severity)"
           >
             <v-card-title class="text-h5 text--primary">
               {{announcement!.title}}
@@ -21,7 +20,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { Severity } from '../constants/Severity';
 import Announcement from '../entities/Announcement';
+import SeverityColor from '../styles/SeverityColor';
 
     export default defineComponent({
         name: "AnnouncementCard",
@@ -31,6 +32,11 @@ import Announcement from '../entities/Announcement';
         setup(props) {
           console.log(props.announcement)
         },
+        methods: {
+          toSeverityColor(s: Severity){
+            return SeverityColor[s]
+          }
+        }
     })
 
 </script>
