@@ -12,7 +12,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="booking in data?.bookings" :key="booking.id">
+				<tr v-for="booking in bookings" :key="booking.id">
 					<td>{{ booking.id }}</td>
 					<td>{{ booking.building.name }}</td>
 					<td>{{ booking.common_space }}</td>
@@ -26,22 +26,12 @@
 </template>
 <script lang="ts">
 	import { defineComponent } from "vue";
-	import { useFetch } from "../composables/Fetch";
-	import GetBookingsResponse from "../contracts/GetBookingsResponse";
-	import { useBuildingStore } from "../stores/BuildingStore";
 
 	export default defineComponent({
 		name: "BookingList",
-		async setup() {
-			const buildingStore = useBuildingStore();
-			const { data, error, fetch } = useFetch<null, GetBookingsResponse>(
-				"building/:building_id/bookings",
-				"GET"
-			);
-			var building = buildingStore.building;
-			var params = new Map<string, string>([[":building_id", building?.id!]]);
-			await fetch(null, params);
-			return { data, error };
+		props: ["bookings"],
+		setup(props) {
+			return {props}
 		},
 	});
 </script>

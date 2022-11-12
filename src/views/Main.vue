@@ -7,12 +7,12 @@ import { defineComponent } from "vue";
 import { useFetch } from "../composables/Fetch";
 import GetBuildingResponse from "../contracts/GetBuildingResponse";
 import Building from "../entities/Building";
-import { useBuildingStore } from "../stores/BuildingStore";
+import { useUserInfoStore } from "../stores/UserInfoStore";
 
 	export default defineComponent({
 		name: "MainView",
 		async setup(){
-			const buildingStore = useBuildingStore();
+			const store = useUserInfoStore();
 			const { data, error, fetch } = useFetch<null, GetBuildingResponse>(
 				"/building",
 				"GET"
@@ -20,7 +20,7 @@ import { useBuildingStore } from "../stores/BuildingStore";
 			await fetch();
 			var building = new Building();
 			building.FillFromResponse(data.value!);
-			buildingStore.setBuilding(building);
+			store.setBuilding(building);
 		}
 	});
 </script>
