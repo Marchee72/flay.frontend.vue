@@ -2,25 +2,28 @@ import { useLocalStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
 import Building from "../entities/Building";
 import ILw from "../entities/lw/ILw";
-import UserInfo from "../entities/UserInfo";
+import IUserInfo from "../entities/UserInfo";
 
 export const useUserInfoStore = defineStore("userInfo", {
 	state: () => ({
-		userInfo: useLocalStorage("userInfo", {} as UserInfo),
+		userInfo: useLocalStorage("userInfo", {} as IUserInfo),
 	}),
 	actions: {
-		setBuilding(building: Building) {
-			this.userInfo.building = building;
+		setInfo(info: IUserInfo) {
+			this.userInfo = info;
 		},
 		unsetBuilding() {
 			this.userInfo.building = {} as Building;
 		},
-		setUser(user: ILw){
+		setUser(user: ILw) {
 			this.userInfo.user = user;
 		},
-		unsetUser(){
+		unsetUser() {
 			this.userInfo.user = {} as ILw;
-		}
+		},
+		unsetInfo() {
+			this.userInfo = {} as IUserInfo;
+		},
 	},
 });
 
