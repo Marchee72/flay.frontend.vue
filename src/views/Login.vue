@@ -1,6 +1,5 @@
 <template>
 	<LoginForm />
-	hola
 </template>
 
 <script lang="ts">
@@ -10,9 +9,9 @@
 	export default defineComponent({
 		name: "LoginView",
 		components: { LoginForm },
-		setup(){
+		setup() {
 			localStorage.clear();
-		}
+		},
 	});
 </script>
 

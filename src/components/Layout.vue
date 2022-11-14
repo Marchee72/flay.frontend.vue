@@ -14,10 +14,7 @@
 		<v-btn variant="text" icon="mdi-filter"></v-btn>
 
 		<v-btn variant="text" icon="mdi-dots-vertical"></v-btn>
-		<RouterLink to="/signin">
-			<v-btn prepend-icon="mdi-logout-variant">Logout</v-btn>
-		</RouterLink>
-
+		<LogoutBtn />
 	</v-app-bar>
 	<v-navigation-drawer v-model="drawer" bottom temporary>
 		<v-list>
@@ -41,8 +38,11 @@
 <script lang="ts">
 	import { defineComponent } from "vue";
 	import { GetAdminPermissions } from "../entities/authorization/Permissions";
-
+	import LogoutBtn from "./LogoutBtn.vue";
 	export default defineComponent({
+		components: {
+			LogoutBtn,
+		},
 		name: "Layout",
 		setup() {
 			// return { listItems };
@@ -52,9 +52,7 @@
 			drawer: false,
 		}),
 		methods: {
-			logout(){
-
-			}
-		}
+			logout() {},
+		},
 	});
 </script>

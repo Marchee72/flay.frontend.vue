@@ -9,26 +9,26 @@
 			<v-form>
 				<v-row>
 					<v-col cols="10" class="mx-auto">
-						<v-field-label>Usuario</v-field-label>
 						<v-text-field
-							aria-label="usuario"
+							label="usuario"
 							v-model="username"
+							required
 						></v-text-field>
 					</v-col>
 				</v-row>
 				<v-row>
 					<v-col cols="10" class="mx-auto">
-						<v-field-label>Contrasena</v-field-label>
 						<v-text-field
 							cols="5"
-							aria-label="contrasena"
+							label="contrasena"
 							type="password"
+							required
 							v-model="password"
 						></v-text-field>
 					</v-col>
 				</v-row>
 				<v-card-actions>
-					<v-btn @click="handleSubmit()">Login</v-btn>
+					<v-btn green @click="handleSubmit()">Login</v-btn>
 				</v-card-actions>
 			</v-form>
 		</v-card>
