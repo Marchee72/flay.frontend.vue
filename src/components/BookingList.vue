@@ -13,7 +13,7 @@
 				<tr v-for="booking in bookings" :key="booking.id">
 					<td>{{ booking.apartment.name }}</td>
 					<td>{{ booking.common_space }}</td>
-					<td>{{ booking.date }}</td>
+					<td>{{ formatDate(booking.date) }}</td>
 					<td>{{ booking.shift }}</td>
 				</tr>
 			</tbody>
@@ -23,12 +23,19 @@
 </template>
 <script lang="ts">
 	import { defineComponent } from "vue";
+	import Booking from "../entities/Booking";
+	import { ToFormatString } from "../utils/Dates";
 
 	export default defineComponent({
 		name: "BookingList",
-		props: ["bookings"],
+		props: { bookings: Array<Booking> },
 		setup(props) {
 			return { props };
+		},
+		methods: {
+			formatDate(date: Date) {
+				return ToFormatString(date);
+			},
 		},
 	});
 </script>
