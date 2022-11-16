@@ -7,7 +7,7 @@
 		v-model="tab"
 	>
 		<v-tab value="building-bookings" @click="fetchBuildingBookings">
-			Reservas edificio
+			Reservas {{ userInfo.building.name }}
 		</v-tab>
 		<v-tab value="user-building" @click="fetchUserBookings">
 			Mis reservas
@@ -70,6 +70,7 @@
 		},
 		methods: {
 			async fetchBuildingBookings() {
+				if (this.buildingBookings.length) return;
 				const { data, error, fetch } = useFetch<null, GetBookingsResponse>(
 					this.buildingBookingsURL,
 					"GET"
@@ -82,6 +83,7 @@
 				);
 			},
 			async fetchUserBookings() {
+				if (this.userBookings.length) return;
 				const { data, error, fetch } = useFetch<null, GetBookingsResponse>(
 					this.userBookingsURL,
 					"GET"
