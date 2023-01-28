@@ -1,6 +1,21 @@
 <template>
 	<v-container>
 		<v-card :color="toSeverityColor(announcement!.severity)">
+			<v-card-title>
+				<v-row class="d-flex">
+					<v-col>
+						<div class="d-flex justify-start">
+							{{ formatDate(announcement?.date) }}
+						</div>
+					</v-col>
+					<v-col>
+						<div class="d-flex justify-end">
+							{{ announcement!.user.name }}
+							<v-icon icon="mdi-account-circle"></v-icon>
+						</div>
+					</v-col>
+				</v-row>
+			</v-card-title>
 			<v-card-title class="text-h5 text--primary">
 				{{ announcement!.title }}
 			</v-card-title>
@@ -10,9 +25,9 @@
 					{{ announcement!.message }}
 				</p>
 			</v-card-subtitle>
-			<div class="d-flex justify-end">
+			<v-card-subtitle class="d-flex justify-end">
 				{{ formatDate(announcement?.date) }}
-			</div>
+			</v-card-subtitle>
 		</v-card>
 	</v-container>
 </template>
