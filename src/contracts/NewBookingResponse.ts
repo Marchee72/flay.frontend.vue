@@ -1,6 +1,6 @@
 import { Shift } from "../constants/Shifts";
 
-export default class NewBookingResponse {
+export default class Response {
 	booking!: booking;
 	has_active_penalties!: boolean;
 	penalty!: penalty;

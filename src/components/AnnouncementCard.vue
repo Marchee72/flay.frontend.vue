@@ -2,17 +2,17 @@
 	<v-container>
 		<v-card :color="toSeverityColor(announcement!.severity)">
 			<v-card-title>
-				<v-row class="d-flex">
+				<v-row class="d-flex text-overline">
 					<v-col>
-						<div class="d-flex justify-start">
+						<p class="d-flex justify-start">
 							{{ formatDate(announcement?.date) }}
-						</div>
+						</p>
 					</v-col>
 					<v-col>
-						<div class="d-flex justify-end">
+						<p class="d-flex justify-end">
 							{{ announcement!.user.name }}
 							<v-icon icon="mdi-account-circle"></v-icon>
-						</div>
+						</p>
 					</v-col>
 				</v-row>
 			</v-card-title>

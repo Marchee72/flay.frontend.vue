@@ -1,4 +1,4 @@
-export default class GetBuildingResponse {
+export default class Response {
 	id!: string;
 	name!: string;
 	address!: string;

@@ -1,5 +1,5 @@
 import Announcement from "../entities/Announcement";
 
-export default class GetAnnouncementsResponse {
-    announcements!: Announcement[];
+export default class Response {
+	announcements!: Announcement[];
 }

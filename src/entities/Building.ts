@@ -1,8 +1,8 @@
-import GetBuildingResponse from "../contracts/GetBuildingResponse";
+import Response from "../contracts/GetBuildingResponse";
 import CommonSpace from "./CommonSpace";
 import ILw from "./lw/ILw";
 
-export default class Building implements ILw{
+export default class Building implements ILw {
 	id!: string;
 	name!: string;
 	address!: string;
@@ -10,7 +10,7 @@ export default class Building implements ILw{
 
 	constructor() {}
 
-	FillFromResponse(buildingResponse: GetBuildingResponse) {
+	FillFromResponse(buildingResponse: Response) {
 		this.id = buildingResponse.id;
 		this.name = buildingResponse.name;
 		this.address = buildingResponse.address;
@@ -24,5 +24,3 @@ class address {
 	floor!: number;
 	apartment!: string;
 }
-
-
