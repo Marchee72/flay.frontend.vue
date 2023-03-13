@@ -20,14 +20,11 @@
 				{{ announcement!.title }}
 			</v-card-title>
 
-			<v-card-subtitle>
+			<!-- <v-card-subtitle>
 				<p class="text-wrap">
 					{{ announcement!.message }}
 				</p>
-			</v-card-subtitle>
-			<v-card-subtitle class="d-flex justify-end">
-				{{ formatDate(announcement?.date) }}
-			</v-card-subtitle>
+			</v-card-subtitle> -->
 		</v-card>
 	</v-container>
 </template>

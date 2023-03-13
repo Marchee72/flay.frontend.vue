@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import Building from "../entities/Building";
 import ILw from "../entities/lw/ILw";
 import IUserInfo from "../entities/UserInfo";
+import IUserLw from "../entities/lw/IUserLw";
 
 export const useUserInfoStore = defineStore("userInfo", {
 	state: () => ({
@@ -15,11 +16,11 @@ export const useUserInfoStore = defineStore("userInfo", {
 		unsetBuilding() {
 			this.userInfo.building = {} as Building;
 		},
-		setUser(user: ILw) {
+		setUser(user: IUserLw) {
 			this.userInfo.user = user;
 		},
 		unsetUser() {
-			this.userInfo.user = {} as ILw;
+			this.userInfo.user = {} as IUserLw;
 		},
 		unsetInfo() {
 			this.userInfo = {} as IUserInfo;

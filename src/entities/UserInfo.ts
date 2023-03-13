@@ -1,9 +1,9 @@
 import Apartment from "./Apartment";
 import Building from "./Building";
-import ILw from "./lw/ILw";
+import IUserLw from "./lw/IUserLw";
 
 export default class IUserInfo {
-	user!: ILw;
+	user!: IUserLw;
 	building!: Building;
 	apartment!: Apartment;
 }

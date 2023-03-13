@@ -1,4 +1,6 @@
 <template>
+	<AdminDashboard v-if="type == 'ADMIN'" />
+	<RenterDashboard v-if="type == 'RENTER'" />
 	<v-container fluid>
 		<v-row>
 			<v-col cols="12" md="6" lg="3">
@@ -94,73 +96,85 @@
 		</v-row>
 	</v-container>
 </template>
-<script lang="ts">
-	export default {
-		data() {
-			return {
-				buildings: 25,
-				consortia: 8,
-				units: 60,
-				owners: 120,
-				activityHeaders: [
-					{ text: "Date", value: "date" },
-					{ text: "Action", value: "action" },
-					{ text: "Description", value: "description" },
-				],
-				activities: [
-					{
-						action: { icon: "mdi-alert", color: "red" },
-						name: "Alarm",
-						date: "2022-01-01",
-					},
-					{
-						action: { icon: "mdi-pencil", color: "blue" },
-						name: "Edit",
-						date: "2022-01-02",
-					},
-					{
-						action: { icon: "mdi-plus", color: "green" },
-						name: "Add",
-						date: "2022-01-03",
-					},
-					{
-						action: { icon: "mdi-delete", color: "red" },
-						name: "Delete",
-						date: "2022-01-04",
-					},
-					{
-						action: { icon: "mdi-alert", color: "red" },
-						name: "Alarm",
-						date: "2022-01-05",
-					},
-				],
-				alerts: [
-					{
-						title: "Water leak in building A",
-						time: "10 minutes ago",
-						icon: "mdi-alert",
-						color: "red",
-					},
-					{
-						title: "New owner registered",
-						time: "1 hour ago",
-						icon: "mdi-account-plus",
-						color: "green",
-					},
-					{
-						title: "Maintenance request received",
-						time: "2 hours ago",
-						icon: "mdi-wrench",
-						color: "yellow",
-					},
-					{
-						title: "Payment overdue",
-						time: "1 day ago",
-						icon: "mdi-alert",
-						color: "red",
-					},
-				],
-			};
-		},
-	};
+<script lang="ts">import { defineComponent } from 'vue';
+import { useUserInfoStore } from '../stores/UserInfoStore';
+import AdminDashboard from '../components/AdminDashboard.vue';
+import RenterDashboard from '../components/RenterDashboard.vue';
+
+	export default defineComponent({
+    name: "DashboardView",
+	components: { AdminDashboard, RenterDashboard },
+
+    setup() {
+        const store = useUserInfoStore();
+        let type = store.userInfo.user.type;
+        return { type };
+    },
+    data() {
+        return {
+            buildings: 25,
+            consortia: 8,
+            units: 60,
+            owners: 120,
+            activityHeaders: [
+                { text: "Date", value: "date" },
+                { text: "Action", value: "action" },
+                { text: "Description", value: "description" },
+            ],
+            activities: [
+                {
+                    action: { icon: "mdi-alert", color: "red" },
+                    name: "Alarm",
+                    date: "2022-01-01",
+                },
+                {
+                    action: { icon: "mdi-pencil", color: "blue" },
+                    name: "Edit",
+                    date: "2022-01-02",
+                },
+                {
+                    action: { icon: "mdi-plus", color: "green" },
+                    name: "Add",
+                    date: "2022-01-03",
+                },
+                {
+                    action: { icon: "mdi-delete", color: "red" },
+                    name: "Delete",
+                    date: "2022-01-04",
+                },
+                {
+                    action: { icon: "mdi-alert", color: "red" },
+                    name: "Alarm",
+                    date: "2022-01-05",
+                },
+            ],
+            alerts: [
+                {
+                    title: "Water leak in building A",
+                    time: "10 minutes ago",
+                    icon: "mdi-alert",
+                    color: "red",
+                },
+                {
+                    title: "New owner registered",
+                    time: "1 hour ago",
+                    icon: "mdi-account-plus",
+                    color: "green",
+                },
+                {
+                    title: "Maintenance request received",
+                    time: "2 hours ago",
+                    icon: "mdi-wrench",
+                    color: "yellow",
+                },
+                {
+                    title: "Payment overdue",
+                    time: "1 day ago",
+                    icon: "mdi-alert",
+                    color: "red",
+                },
+            ],
+        };
+    },
+})
 </script>

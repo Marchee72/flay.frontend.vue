@@ -1,5 +1,5 @@
 <template>
-	<AnnouncementList />
+	<AnnouncementList :key="key"/>
 	<AnnouncementForm :dialog="dialog" />
 </template>
 <script lang="ts">
@@ -14,7 +14,13 @@
 		data() {
 			return {
 				dialog: false,
+				key: 0
 			};
 		},
+		watch:{
+			dialog(){
+				if (!this.dialog) this.key++;
+			}
+		}
 	});
 </script>

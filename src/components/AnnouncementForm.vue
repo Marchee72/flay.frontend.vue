@@ -2,7 +2,7 @@
 	<v-row justify="center">
 		<v-dialog v-model="dialog" activator="parent">
 			<template v-slot:activator="{ props }">
-				<v-btn icon ripple color="red" class="float-button">
+				<v-btn icon ripple color="red" class="float-button" absolute>
 					<v-icon v-bind="props" right mbottom> mdi-plus </v-icon>
 				</v-btn>
 			</template>
