@@ -1,16 +1,24 @@
 <template>
 	<AnnouncementList :key="key"/>
-	<AnnouncementForm :dialog="dialog" />
+	<AnnouncementForm v-if="permissions?.Announcement.AllowWrite()" :dialog="dialog" />
 </template>
 <script lang="ts">
 	import { defineComponent } from "vue";
 	import AnnouncementForm from "../components/AnnouncementForm.vue";
 	import AnnouncementList from "../components/AnnouncementList.vue";
+	import { useUserInfoStore } from "../stores/UserInfoStore";
+import { GetPermissions } from "../entities/authorization/Permissions";
 
 	export default defineComponent({
 		name: "AnnouncementView",
 		components: { AnnouncementList, AnnouncementForm },
+		setup(){
+			let store = useUserInfoStore();
+			let permissions = GetPermissions(store.userInfo.user.type);
+			return {permissions}
 
+
+		},
 		data() {
 			return {
 				dialog: false,
