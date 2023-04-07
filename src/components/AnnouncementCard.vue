@@ -1,6 +1,9 @@
 <template>
 	<v-container>
-		<v-card :color="toSeverityColor(announcement!.severity)">
+		<v-card
+			:color="toSeverityColor(announcement!.severity)"
+			@click="showDetails()"
+		>
 			<v-card-title>
 				<v-row class="d-flex text-overline">
 					<v-col>
@@ -21,10 +24,10 @@
 			</v-card-title>
 
 			<!-- <v-card-subtitle>
-				<p class="text-wrap">
-					{{ announcement!.message }}
-				</p>
-			</v-card-subtitle> -->
+					<p class="text-wrap">
+						{{ announcement!.message }}
+					</p>
+				</v-card-subtitle> -->
 		</v-card>
 	</v-container>
 </template>
@@ -32,6 +35,7 @@
 	import { defineComponent } from "vue";
 	import { Severity } from "../constants/Severity";
 	import Announcement from "../entities/Announcement";
+	import router from "../router";
 	import SeverityColor from "../styles/SeverityColor";
 	import { ToFormatString } from "../utils/Dates";
 
@@ -49,6 +53,9 @@
 			},
 			formatDate(date?: Date): string {
 				return date ? ToFormatString(date!) : "";
+			},
+			showDetails() {
+				router.push({ path: "/announcements/" + this.announcement?.id! });
 			},
 		},
 	});

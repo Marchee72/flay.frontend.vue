@@ -30,6 +30,12 @@ const routes: RouteRecordRaw[] = [
 				path: "/announcements",
 				name: "announcements",
 				component: () => import("../views/Announcements.vue"),
+				children: [],
+			},
+			{
+				path: "/announcements/:announcement_id",
+				name: "announcementDetails",
+				component: () => import("../views/AnnouncementDetails.vue"),
 			},
 		],
 	},
