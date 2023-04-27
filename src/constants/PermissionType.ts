@@ -1,4 +1,4 @@
 export enum PermissionType {
-    READONLY,
-    ALL
+	READONLY,
+	READWRITE,
 }
