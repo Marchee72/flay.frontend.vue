@@ -28,9 +28,7 @@
 import { defineComponent } from "vue";
 import Response from "../contracts/GetExpensesResponse";
 import { SortByProp } from "../utils/Sorting";
-import { saveAs } from "file-saver";
 import { useFileFetch } from "../composables/FetchFile";
-import jsPDF from "jspdf";
 
 export default defineComponent({
   name: "RenterExpenses",
