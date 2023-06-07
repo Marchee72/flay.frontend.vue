@@ -2,21 +2,21 @@
   <h1>Renter expenses</h1>
   <v-card>
     <v-list>
-      <v-list-item v-for="expense in sortedData()" :key="expense.Id" primary>
+      <v-list-item v-for="expense in data?.expenses" :key="expense.id" primary>
         <v-list-item-content>
           <v-list-item-title>
-            <strong>Fecha:</strong> {{ expense.Month }}
+            <strong>Fecha:</strong> {{ expense.month }}
           </v-list-item-title>
           <v-list-item-subtitle>
-            <strong>Expense Name:</strong> {{ expense.Name }}
+            <strong>Expense Name:</strong> {{ expense.filename }}
           </v-list-item-subtitle>
           <v-list-item-subtitle>
-            <strong>Departamento:</strong> {{ expense.Unit }}
+            <strong>Departamento:</strong> {{ expense.unit }}
           </v-list-item-subtitle>
           <!-- Add other expense properties as needed -->
         </v-list-item-content>
         <v-list-item-action>
-          <v-btn text @click="downloadExpensePDF(expense.Id)">
+          <v-btn text @click="downloadExpensePDF(expense.id)">
             Descargar PDF
           </v-btn>
         </v-list-item-action>
@@ -29,48 +29,30 @@ import { defineComponent } from "vue";
 import Response from "../contracts/GetExpensesResponse";
 import { SortByProp } from "../utils/Sorting";
 import { useFileFetch } from "../composables/FetchFile";
+import { useFetch } from "../composables/Fetch";
+import { useUserInfoStore } from "../stores/UserInfoStore";
 
 export default defineComponent({
   name: "RenterExpenses",
-  setup() {
-    const { data, error, fetch } = useFileFetch("/file/:content_id", "blob");
-    let fileData = data;
-    return { fileData, error, fetch };
-  },
-  data() {
-    return {
-      data: [
-        {
-          Id: "6462a29dcc7e1172a7d84ceb",
-          Name: "pepe",
-          Date: new Date(),
-          Month: 6,
-          Unit: "1-A",
-          Year: 2023,
-        },
-        {
-          Id: "3",
-          Name: "pipi",
-          Date: new Date(),
-          Month: 8,
-          Unit: "1-A",
-          Year: 2023,
-        },
-        {
-          Id: "2",
-          Name: "papa",
-          Date: new Date(),
-          Month: 7,
-          Unit: "1-A",
-          Year: 2023,
-        },
-      ] as Response[],
-    };
+  async setup() {
+    const { fileData, fileFetch } = useFileFetch("/file/:content_id", "blob");
+    const { data, error, fetch } = useFetch<null, Response>(
+      "/expense/:unit",
+      "GET",
+      true
+    );
+    const store = useUserInfoStore();
+    const apartmentInfo = store.userInfo.apartment;
+    const unit = apartmentInfo.floor+"-"+apartmentInfo.flat;
+    var params = new Map<string, string>([[":unit", unit]]);
+    await fetch(null, params);
+
+    return { fileData, data, error, fileFetch };
   },
   methods: {
     async downloadExpensePDF(id: string) {
       var params = new Map<string, string>([[":content_id", id!]]);
-      await this.fetch(params).catch((error) => alert("Ups! " + error));
+      await this.fileFetch(params).catch((error) => alert("Ups! " + error));
       const url = window.URL.createObjectURL(this.fileData);
       const link = document.createElement("a");
       link.href = url;
@@ -79,7 +61,7 @@ export default defineComponent({
       window.URL.revokeObjectURL(url);
     },
     sortedData() {
-      return SortByProp(this.data, "Date");
+      return SortByProp(this.data?.expenses!, "Date");
     },
   },
 });

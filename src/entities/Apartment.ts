@@ -1,4 +1,4 @@
-export default class Apartment {
+export default class Unit {
 	id!: string;
 	floor!: number;
 	flat!: string;
