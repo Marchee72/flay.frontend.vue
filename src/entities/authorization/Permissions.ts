@@ -51,7 +51,7 @@ export function GetAdminPermissions() {
 			"Anuncios",
 			"announcements",
 			"mdi-bullhorn",
-			PermissionType.READONLY
+			PermissionType.READWRITE
 		),
 		Expenses: new Permission(
 			"Expensas",

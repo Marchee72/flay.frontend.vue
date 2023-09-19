@@ -5,6 +5,7 @@
 			@click="showDetails()"
 		>
 			<v-card-title>
+				
 				<v-row class="d-flex text-overline">
 					<v-col>
 						<p class="d-flex justify-start">
@@ -23,11 +24,14 @@
 				{{ announcement!.title }}
 			</v-card-title>
 
-			<!-- <v-card-subtitle>
-					<p class="text-wrap">
-						{{ announcement!.message }}
+			<v-card-title>
+				<v-row class="d-flex text-overline">
+					<p>
+						{{ announcement?.building.name }}
+						<v-icon icon="mdi-office-building"></v-icon>
 					</p>
-				</v-card-subtitle> -->
+				</v-row>
+			</v-card-title>
 		</v-card>
 	</v-container>
 </template>

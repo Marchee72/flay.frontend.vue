@@ -22,20 +22,21 @@
 	<!-- <h1 v-else>No has hecho ninguna reserva!</h1> -->
 </template>
 <script lang="ts">
-	import { defineComponent } from "vue";
-	import Booking from "../entities/Booking";
-	import { ToFormatString } from "../utils/Dates";
+import { defineComponent } from "vue";
+import Booking from "../entities/Booking";
+import { ToFormatString } from "../utils/Dates";
 
-	export default defineComponent({
-		name: "BookingList",
-		props: { bookings: Array<Booking> },
-		setup(props) {
-			return { props };
+export default defineComponent({
+	name: "BookingList",
+	props: { bookings: Array<Booking> },
+	setup(props) {
+		return { props };
+	},
+	methods: {
+		formatDate(date: Date) {
+			return ToFormatString(date);
 		},
-		methods: {
-			formatDate(date: Date) {
-				return ToFormatString(date);
-			},
-		},
-	});
+	},
+});
 </script>
+props
