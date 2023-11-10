@@ -17,16 +17,21 @@ export const useUserInfoStore = defineStore("userInfo", {
       this.userInfo.building = {} as Building;
     },
     setBuilding(building: Building) {
-      this.userInfo.building = building;
+      var user = this.userInfo;
+      user.building = building;
+      this.userInfo = user;
+      console.log("building set: " + this.userInfo.building.id);
     },
     setUser(user: IUserLw) {
       this.userInfo.user = user;
     },
     unsetUser() {
       this.userInfo.user = {} as IUserLw;
+      console.log("Unsetting user");
     },
     unsetInfo() {
       this.userInfo = {} as IUserInfo;
+      console.log("Unsetting info");
     },
   },
 });

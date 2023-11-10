@@ -37,6 +37,7 @@ export default defineComponent({
   methods: {
     selectBuilding() {
       this.store.setBuilding(this.building!);
+      console.log(this.building!);
       this.$router.push("main");
 
     }

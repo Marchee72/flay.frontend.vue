@@ -72,7 +72,7 @@ router.beforeEach((to, from, next) => {
     return next("/signin");
   }
   if (
-    userInfoStore.userInfo.user.type === "ADMIN" &&
+    userInfoStore.userInfo.user?.type === "ADMIN" &&
     !userInfoStore.userInfo.building
   )
     return next("/buildings");
