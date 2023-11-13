@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-row>
-            <v-col v-for="expense in sorted" :key="expense.id" cols="12" md="4">
+            <v-col v-for="expense in data?.expenses" :key="expense.id" cols="12" md="4">
                 <v-card>
                     <v-card-title>{{ expense.filename }}</v-card-title>
                     <v-card-subtitle>{{ expense.unit }}</v-card-subtitle>
@@ -22,7 +22,6 @@ import { useFetch } from '../composables/Fetch';
 import Response from '../contracts/GetExpensesResponse';
 import { useUserInfoStore } from '../stores/UserInfoStore';
 
-
 export default defineComponent({
     name: "BuildingExpense",
     props: {
@@ -31,12 +30,9 @@ export default defineComponent({
     },
     async setup(props) {
         const store = useUserInfoStore();
-        if (!props.month || !props.year) return;
+        //if (!props.month || !props.year) return;
         const { data, error, fetch } = useFetch<null, Response>("building/:building_id/expenses?month=:month&year=:year", "GET", true);
-        var building = store.userInfo.building;
-        console.log(building);
-        console.log(data.value);
-
+        let building = store.userInfo.building;
         watch(
             () => props.month,
             async () => {
@@ -49,14 +45,19 @@ export default defineComponent({
                 await fetch(null, params);
             }
         );
-        const sorted = data!.value?.expenses.slice().sort((a, b) => a.unit.localeCompare(b.unit));
-        return { sorted }
+        return { data, error }
     },
     methods: {
         formatDate(date: Date) {
             // Format date as needed
             return new Date(date).toLocaleDateString();
         },
+        sort(response: Response) {
+            return response
+                .expenses
+                .slice()
+                .sort((a, b) => a.unit.localeCompare(b.unit));
+        }
     }
 })
 

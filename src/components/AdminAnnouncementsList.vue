@@ -1,6 +1,4 @@
 <template>
-    Culo
-
     <v-row dense v-for="a in data?.announcements">
         <AnnouncementCard :announcement="a" />
     </v-row>

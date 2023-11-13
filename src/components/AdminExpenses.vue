@@ -11,11 +11,11 @@
 						</v-list-item>
 					</v-list>
 				</v-card>
-				<v-col cols="9">
-					<v-card>
-						<BuildingExpenses :year=year :month=selectedMonth />
-					</v-card>
-				</v-col>
+			</v-col>
+			<v-col cols="8">
+				<v-card>
+					<BuildingExpenses :year=year :month=selectedMonth />
+				</v-card>
 			</v-col>
 		</v-row>
 	</v-container>Enero
