@@ -13,12 +13,10 @@
 				</v-card>
 			</v-col>
 			<v-col cols="8">
-				<v-card>
-					<BuildingExpenses :year=year :month=selectedMonth />
-				</v-card>
+				<BuildingExpenses :year=year :month=selectedMonth />
 			</v-col>
 		</v-row>
-	</v-container>Enero
+	</v-container>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -45,11 +43,11 @@ export default defineComponent({
 					7: "Julio",
 					8: "Agosto",
 					9: "Septiembre",
-					10: "Octubrr",
+					10: "Octubre",
 					11: "Noviembre",
 					12: "Decimbre",
 				} as { [id: number]: string },
-			selectedMonth: 1,
+			selectedMonth: new Date().getMonth() - 1,
 			year: 2023
 		}
 	},

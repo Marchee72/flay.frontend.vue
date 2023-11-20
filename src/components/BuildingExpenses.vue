@@ -1,19 +1,24 @@
 <template>
     <v-container>
-        <v-row>
-            <v-col v-for="expense in data?.expenses" :key="expense.id" cols="12" md="4">
-                <v-card>
-                    <v-card-title>{{ expense.filename }}</v-card-title>
-                    <v-card-subtitle>{{ expense.unit }}</v-card-subtitle>
-                    <v-card-text>
-                        <div>Date: {{ formatDate(expense.date) }}</div>
-                        <div>Month: {{ expense.month }}</div>
-                        <div>Year: {{ expense.year }}</div>
-                        <div>Building: {{ expense.building.name }}</div>
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
+        <v-card>
+            <v-card-title>Expenses List</v-card-title>
+            <v-card-text>
+                <v-list>
+                    <v-list-item-group v-if="data && data!.expenses.length > 0">
+                        <v-list-item v-for="(expense, index) in data!.expenses" :key="index">
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    {{ expense.unit }} - {{ expense.month }}
+                                </v-list-item-title>
+                                <v-list-item-subtitle>{{ expense.filename }}<v-icon
+                                        icon="mdi-download"></v-icon></v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list-item-group>
+                    <v-alert v-else>No expenses found.</v-alert>
+                </v-list>
+            </v-card-text>
+        </v-card>
     </v-container>
 </template>
 <script lang="ts">
@@ -36,7 +41,6 @@ export default defineComponent({
         watch(
             () => props.month,
             async () => {
-                alert(`chenge: month:${props.month!.toString()}`);
                 var params = new Map<string, string>([
                     [":building_id", building?.id!],
                     [":month", props.month!.toString()],
